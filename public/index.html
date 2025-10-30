@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Nurse Management</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Nurse Management</h1>
+<input type="text" id="search" placeholder="Search..." oninput="filterNurses()">
+<button class="download" onclick="download('csv')">Download CSV</button>
+<button class="download" onclick="download('xlsx')">Download Excel</button>
+
+  <table id="nurseTable">
+    <thead>
+      <tr>
+        <th onclick="sortTable(0)">Id</th>
+        <th onclick="sortTable(1)">Name</th>
+        <th onclick="sortTable(2)">License Number</th>
+        <th onclick="sortTable(3)">DOB</th>
+        <th onclick="sortTable(4)">Age</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <!-- Modal for Add/Edit -->
+  <div id="modal" style="display:none;">
+    <input id="name">
+    <input id="license" >
+    <input id="dob" type="date">
+    <input id="age" type="number">
+    <button onclick="saveNurse()">Save</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
