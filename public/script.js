@@ -54,25 +54,27 @@ function filterNurses() {
 }
 
 async function addNewNurse() {
-  const nurse = {
-    name: document.getElementById('newName').value,
-    license_number: document.getElementById('newLicense').value,
-    dob: document.getElementById('newDOB').value,
-    age: parseInt(document.getElementById('newAge').value),
-  };
+  const name = document.getElementById('newName').value.trim();
+  const license_number = document.getElementById('newLicense').value.trim();
+  const dob = document.getElementById('newDOB').value;
+  const age = parseInt(document.getElementById('newAge').value);
 
-  if (!nurse.name || !nurse.license_number || !nurse.dob || isNaN(nurse.age)) {
-    alert('Please fill all fields correctly.');
+  if (!name || !license_number || !dob || isNaN(age)) {
+    alert("Please fill all fields correctly.");
     return;
   }
 
-  await fetch('/api/nurses', {
+  const res = await fetch('/api/nurses', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(nurse),
+    body: JSON.stringify({ name, license_number, dob, age })
   });
 
-  fetchNurses(); // Refresh table
+  if (res.ok) {
+    fetchNurses(); // Refresh table
+  } else {
+    alert("Failed to add nurse.");
+  }
 }
 
 function editNurse(id) {

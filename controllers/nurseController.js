@@ -12,6 +12,18 @@ exports.addNurse = async (req, res) => {
   await pool.query('INSERT INTO nurses (name, license_number, dob, age) VALUES (?, ?, ?, ?)', [name, license_number, dob, age]);
   res.sendStatus(201);
 };
+exports.createNurse = async (req, res) => {
+  const { name, license_number, dob, age } = req.body;
+  try {
+    const result = await db.query(
+      'INSERT INTO nurses (name, license_number, dob, age) VALUES (?, ?, ?, ?)',
+      [name, license_number, dob, age]
+    );
+    res.status(201).json({ id: result.insertId });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to add nurse' });
+  }
+};
 
 exports.updateNurse = async (req, res) => {
   const { name, license_number, dob, age } = req.body;
