@@ -52,6 +52,14 @@ function filterNurses() {
   );
   renderTable(filtered);
 }
+function showPopup(message) {
+  const popup = document.getElementById('popup');
+  popup.textContent = message;
+  popup.style.display = 'block';
+  setTimeout(() => {
+    popup.style.display = 'none';
+  }, 3000);
+}
 
 async function addNewNurse() {
   const name = document.getElementById('newName').value.trim();
@@ -70,9 +78,10 @@ async function addNewNurse() {
     body: JSON.stringify({ name, license_number, dob, age })
   });
 
-  if (res.ok) {
-    fetchNurses(); // Refresh table
-  } else {
+if (res.ok) {
+  showPopup("✅ Nurse added successfully!");
+  fetchNurses();
+} else {
     alert("Failed to add nurse.");
   }
 }
